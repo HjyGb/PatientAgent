@@ -18,20 +18,27 @@ import textwrap
 import numpy as np
 
 
+_LOCAL_ST_MODEL = None  # singleton, shared across all BailianEmbeddings instances
+
+
 class BailianEmbeddings(Embeddings):
     """Embeddings wrapper: local sentence-transformers or remote API.
 
     When EMBEDDING_MODEL=local, uses BGE-large-zh (free, GPU).
-    Otherwise falls back to the remote OpenAI-compatible API.
+    The model is loaded once and reused.
     """
 
     def __init__(self):
-        self._model = os.getenv("EMBEDDING_MODEL", "text-embedding-v4")
-        self._use_local = self._model.lower() in ("local", "bge-large-zh-v1.5")
+        self._model_name = os.getenv("EMBEDDING_MODEL", "text-embedding-v4")
+        self._use_local = self._model_name.lower() in ("local", "bge-large-zh-v1.5")
 
         if self._use_local:
-            from sentence_transformers import SentenceTransformer
-            self._local_model = SentenceTransformer("BAAI/bge-large-zh-v1.5")
+            global _LOCAL_ST_MODEL
+            if _LOCAL_ST_MODEL is None:
+                from sentence_transformers import SentenceTransformer
+                _LOCAL_ST_MODEL = SentenceTransformer("BAAI/bge-large-zh-v1.5")
+            self._local_model = _LOCAL_ST_MODEL
+            self._client = None
         else:
             self._client = OpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
@@ -46,7 +53,7 @@ class BailianEmbeddings(Embeddings):
                 texts, normalize_embeddings=True, show_progress_bar=False
             )
             return embeddings.tolist()
-        resp = self._client.embeddings.create(input=texts, model=self._model)
+        resp = self._client.embeddings.create(input=texts, model=self._model_name)
         return [d.embedding for d in resp.data]
 
     def embed_query(self, text: str) -> List[float]:
