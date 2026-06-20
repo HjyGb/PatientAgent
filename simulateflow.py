@@ -210,3 +210,31 @@ def flow(sheet_name: str = "病程记录_首次病程", row_number: int = 6, col
         for file_path in source_folder.glob("*.txt"):
             shutil.move(str(file_path), str(destination_folder))
             print(f"File {file_path.name} moved to {destination_folder}")
+
+
+# ====== Quick-start entry point ======
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="PatientAgent — single consultation simulation"
+    )
+    parser.add_argument(
+        "--row", type=int, default=2,
+        help="Row number in the Excel sheet (default: 2)"
+    )
+    parser.add_argument(
+        "--sheet", type=str, default="病程记录_首次病程",
+        help="Excel sheet name (default: 病程记录_首次病程)"
+    )
+    parser.add_argument(
+        "--col", type=int, default=1,
+        help="Column number in the Excel sheet (default: 1)"
+    )
+    args = parser.parse_args()
+
+    print("=" * 60)
+    print("  PatientAgent — Single Consultation")
+    print(f"  Sheet: {args.sheet}  Row: {args.row}  Col: {args.col}")
+    print("=" * 60)
+    flow(sheet_name=args.sheet, row_number=args.row, col_number=args.col)
