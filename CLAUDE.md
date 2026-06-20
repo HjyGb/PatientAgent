@@ -137,3 +137,17 @@ A convenience copy of `question_record.csv` is also written at the project root.
 - `dataset/patient_evolve.csv` — patient-side evolution store
 - `dataset/doctor_evolve_{office}.csv` — doctor-side evolution stores (one per specialty)
 - `dataset/pool.csv` — cover pool (embeddings of chief complaints, built by `cover.py`)
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues on `HjyGb/PatientAgent`. PRs are not a request surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default label vocabulary — identity mapping for all five canonical triage roles. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context repo — one `CONTEXT.md` + `docs/adr/` at the root. See `docs/agents/domain.md`.
