@@ -79,7 +79,6 @@ def llm_api(messages, model: str | None = None, temperature: float = 0.2) -> str
         stream=False,
         frequency_penalty=0.0,
         presence_penalty=0.0,
-        logit_bias={},
     ).model_dump()
     response_text = response["choices"][0]["message"]["content"]
     token_counter(response["usage"])
@@ -98,7 +97,6 @@ def llm_api_lite(messages, model: str | None = None, temperature: float = 0.2) -
         stream=False,
         frequency_penalty=0.0,
         presence_penalty=0.0,
-        logit_bias={},
     ).model_dump()
     response_text = response["choices"][0]["message"]["content"]
     token_counter(response["usage"])
@@ -106,10 +104,41 @@ def llm_api_lite(messages, model: str | None = None, temperature: float = 0.2) -
 
 
 # ====== Embedding API ======
+
+_LOCAL_EMBEDDING = None
+_LOCAL_EMBEDDING_MODEL_NAME = "BAAI/bge-large-zh-v1.5"
+
+
+def _get_local_embedding_model():
+    """Lazy-load local sentence-transformers model (free, GPU-accelerated)."""
+    global _LOCAL_EMBEDDING
+    if _LOCAL_EMBEDDING is None:
+        from sentence_transformers import SentenceTransformer
+        print(f"[embedding] Loading local model: {_LOCAL_EMBEDDING_MODEL_NAME}...")
+        _LOCAL_EMBEDDING = SentenceTransformer(_LOCAL_EMBEDDING_MODEL_NAME)
+        dim = _LOCAL_EMBEDDING.get_sentence_embedding_dimension()
+        print(f"[embedding] Loaded. Dimension: {dim}d, device: {_LOCAL_EMBEDDING.device}")
+    return _LOCAL_EMBEDDING
+
+
+def _use_local_embedding(model: str) -> bool:
+    """Check whether to use local sentence-transformers model."""
+    return model.lower() in ("local", _LOCAL_EMBEDDING_MODEL_NAME.lower())
+
+
 def get_text_embedding(text: str, model: str | None = None) -> list:
-    """Get text embedding vector."""
+    """Get text embedding vector.
+
+    When EMBEDDING_MODEL=local, uses local BGE-large-zh model (free, GPU).
+    Otherwise uses the remote API.
+    """
     model = model or EMBEDDING_MODEL
     text = text or "None"
+
+    if _use_local_embedding(model):
+        m = _get_local_embedding_model()
+        return m.encode(text, normalize_embeddings=True).tolist()
+
     return client.embeddings.create(
         input=text,
         model=model,
@@ -117,9 +146,14 @@ def get_text_embedding(text: str, model: str | None = None) -> list:
 
 
 def get_code_embedding(code: str, model: str | None = None) -> list:
-    """Get code embedding vector (uses the same embedding model by default)."""
+    """Get code embedding vector."""
     model = model or EMBEDDING_MODEL
     code = code or "#"
+
+    if _use_local_embedding(model):
+        m = _get_local_embedding_model()
+        return m.encode(code, normalize_embeddings=True).tolist()
+
     return client.embeddings.create(
         input=code,
         model=model,

@@ -19,17 +19,33 @@ import numpy as np
 
 
 class BailianEmbeddings(Embeddings):
-    """Embeddings wrapper using raw OpenAI client (compatible with Bailian DashScope)."""
+    """Embeddings wrapper: local sentence-transformers or remote API.
+
+    When EMBEDDING_MODEL=local, uses BGE-large-zh (free, GPU).
+    Otherwise falls back to the remote OpenAI-compatible API.
+    """
 
     def __init__(self):
-        self._client = OpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("BASE_URL"),
-        )
         self._model = os.getenv("EMBEDDING_MODEL", "text-embedding-v4")
+        self._use_local = self._model.lower() in ("local", "bge-large-zh-v1.5")
+
+        if self._use_local:
+            from sentence_transformers import SentenceTransformer
+            self._local_model = SentenceTransformer("BAAI/bge-large-zh-v1.5")
+        else:
+            self._client = OpenAI(
+                api_key=os.getenv("OPENAI_API_KEY"),
+                base_url=os.getenv("BASE_URL"),
+            )
+            self._local_model = None
 
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
         texts = [t.replace("\n", " ") for t in texts]
+        if self._use_local and self._local_model:
+            embeddings = self._local_model.encode(
+                texts, normalize_embeddings=True, show_progress_bar=False
+            )
+            return embeddings.tolist()
         resp = self._client.embeddings.create(input=texts, model=self._model)
         return [d.embedding for d in resp.data]
 
