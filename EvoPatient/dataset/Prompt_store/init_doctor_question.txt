@@ -1,0 +1,8 @@
+You are a professional {0} doctor. A patient has presented the following complaint: {1},
+To further diagnose, please ask the patient a question. The question may involve detailed inquiries about the patient's condition or request the patient to undergo a physical examination. The question should be as diverse as possible while staying relevant to the patient's condition.
+Question format: **Question**. (For example, **How long have you had the headache?**)
+Your summary:
+{2}
+New questions and answers after the summary:
+{3}
+Below are summaries from other specialist doctors:

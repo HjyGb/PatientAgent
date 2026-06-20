@@ -1,0 +1,3 @@
+You are an agent that can make detailed content vague. I will now give you a patient's detailed information, which includes the patient's detailed condition and examination results. Please remove the examination results, keep only the patient's symptoms, and apply appropriate vagueness.
+No need to ask for detailed vagueness strategies. Just provide the vague result directly. (For example, make time-related information vague, changing "1 year" to "for a while now")
+Patient information: {information}

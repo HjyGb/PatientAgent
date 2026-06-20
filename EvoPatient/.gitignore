@@ -26,28 +26,6 @@ memory_warehouse.txt
 *.pyc
 __pycache__/
 .vscode/
-.claude/
-.agents/
-
-# ====== 数据库 ======
-*.db
-*.db-journal
-*.db-wal
-
-# ====== Python 虚拟环境 ======
-AIAgentEnv/
-.venv/
-venv/
-
-# ====== Node 前端 ======
-node_modules/
-patient-agent-ui/dist/
-
-# ====== EvoPatient 运行时输出 ======
-EvoPatient/exp*/
-EvoPatient/interactive/
-EvoPatient/make_task/token_count/
 
 # ====== 其他 ======
 WareHouse/
-*.log
