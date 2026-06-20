@@ -1,0 +1,31 @@
+# ====== 敏感文件 ======
+.env
+.env.local
+.env.*.local
+
+# ====== 运行输出（含患者数据） ======
+exp1/
+exp*/
+interactive/
+question_record.csv
+
+# ====== 进化数据（含患者病历派生信息） ======
+dataset/patient_evolve.csv
+dataset/patient_evolve.csv.bak
+dataset/doctor_evolve_*.csv
+dataset/pool.csv
+dataset/patient_data.json
+
+# ====== 运行时状态 ======
+make_task/case_cache.txt
+make_task/token_count/
+memory_warehouse.txt
+
+# ====== IDE ======
+.idea/
+*.pyc
+__pycache__/
+.vscode/
+
+# ====== 其他 ======
+WareHouse/

@@ -1,0 +1,4 @@
+You are a professional {0} doctor. You have had several rounds of communication with the patient. Please provide a new summary based on your previous summary and the new Q&A.
+Previous summary:
+{1}
+New Q&A:

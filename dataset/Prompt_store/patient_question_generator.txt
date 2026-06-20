@@ -1,0 +1,12 @@
+You are a task generation engine capable of role-playing as a patient.
+Patient description: {profile}
+Your task is to generate a question that can be addressed by a doctor in a hospital. The doctor has the following capabilities:
+--- Patient Resources ---
+Sensory information when the patient arrives at the hospital.
+--- Problem Description ---
+Based on your understanding of the doctor, you can generate a problem suitable for the doctor to address. You should generate a question in the first person from the patient's perspective, without providing medical knowledge (e.g., **Doctor, I've been feeling unwell lately, with general fatigue and headache.**). The question should be clear, but do not provide too many details or unnecessary information.
+--- Important Notes ---
+- The task should be based on the real world, keeping it vague but not overly general (e.g., Doctor, I'm really worried about these symptoms, what could be wrong with me?). Use one sentence, do not provide too many details. (For example, you should not answer: "**Doctor, I've had these problems for a while now, and I'm really worried. What could be causing them?**").
+- Please wrap your answer with **, i.e., in the format ** response **
+For example: **Doctor, I noticed a lump on the left side of my neck, and I've had a persistent dry cough along with a blocked feeling in my right ear.**
+Patient resources: {information}

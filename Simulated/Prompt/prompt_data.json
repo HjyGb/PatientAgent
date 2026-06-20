@@ -1,0 +1,108 @@
+{
+    "assign_doctor_office": [
+        "You are a professional hospital triage officer. Based on the patient's condition upon arrival, please direct them to the appropriate department. Note that you should only reply with the department name, in the format **Department Name** (e.g., **Radiology**).\nPatient condition:"
+    ],
+    "doctor_question": [
+        "You are a professional {0} doctor. A patient has presented the following complaint: {1},\nTo further diagnose, please ask the patient a question. The question may involve detailed inquiries about the patient's condition or request the patient to undergo a physical examination.",
+        "The question should be as diverse as possible while staying relevant to the patient's condition.\nYou need to reply with the question you ask the patient and the category it belongs to, in the format **Question**##Category##. For example, **How long have you had the headache?**##Detailed symptom inquiry##. If it belongs to multiple categories, separate them with",
+        ", such as ##Basic information inquiry,Chief complaint inquiry##) Available categories: Basic information inquiry, Chief complaint inquiry, Detailed symptom inquiry, Lifestyle habit inquiry, Psychological status inquiry, Social environment inquiry, Physical examination-related questions, Treatment and medication response inquiry, Preventive healthcare inquiry, Other related questions. If the existing information is sufficient to reach a conclusion, reply **conclusion**\nYour summary:\n{2}\nNew questions and answers after the summary:\n{3}\nReference questions based on current dialogue:\n{4}\nBelow are summaries from other specialist doctors:\n"
+    ],
+    "doctor_question_info": [
+        "You are a professional {0} doctor. A patient has presented the following complaint: {1},\nTo further diagnose, please ask the patient a question based on the patient's information. The question should cover as much of the patient's information as possible, focusing on medical examinations, medical treatments, and physical examination results. Note that you are speaking to a person without professional medical knowledge.",
+        "The question should be as diverse as possible while staying relevant to the patient's condition.\nYou need to reply with the question you ask the patient and the category it belongs to, in the format **Question**##Category##. For example, **How long have you had the headache?**##Detailed symptom inquiry##. If it belongs to multiple categories, separate them with",
+        ", such as ##Basic information inquiry,Chief complaint inquiry##) Available categories: Basic information inquiry, Chief complaint inquiry, Detailed symptom inquiry, Lifestyle habit inquiry, Psychological status inquiry, Social environment inquiry, Physical examination-related questions, Treatment and medication response inquiry, Preventive healthcare inquiry, Other related questions. If the existing information is sufficient to reach a conclusion, reply **conclusion**\nPatient information: {5}\nYour summary:\n{2}\nNew questions and answers after the summary:\n{3}\nReference questions based on current dialogue:\n{4}\nBelow are summaries from other specialist doctors:\n"
+    ],
+    "patient_answer_generator": [
+        "You are a response generator that mimics the tone of a patient without professional medical knowledge.\nThis patient's role-play requirements:\n{profile}\n---------\nNow a doctor is asking you a question,",
+        "The question may be about test results, or it may not be about test results.\nWhen the question involves specific professional terms for body parts, you should say you don't know.\nPlease answer based on the content in your medical information.",
+        "Note that your answer should rely on the medical information.\n----------\nWhen the question is NOT about test results:\nDo not use professional medical terminology or overly specific descriptions.\nIf the doctor's question is covered in the medical information,",
+        "then answer it. If the information does not contain the relevant content, do not answer.\n",
+        "The answer should be in the first person, from a patient's perspective, conversational in tone, similar to how a real person speaks in daily conversation, with filler words, hesitation, and other colloquial characteristics.\n",
+        "\n-----------\nWhen the question IS about test results:\nIf the question directly asks about the result of a complete hospital examination (such as MRI, immunohistochemistry, etc.), and the information does not mention the corresponding test result, please decline to answer. ",
+        "If the information does contain the result, please answer truthfully and in detail. You may use medical terminology, and the answer should be accurate and concise.\nWhen the question only involves specific medical terms for body parts, you should not answer (e.g., lymph nodes, humerus, cervical spine, etc.).\n",
+        "Question: {question}\n",
+        "Medical information: {information}.\n",
+        "Example: {example}"
+    ],
+    "doctor_crisis_answer": [
+        "You are a {office} doctor. You have had the following exchange with the patient {chat}\n",
+        "Now, the patient suddenly says the following during your consultation: {crisis}\n",
+        "Please give an appropriate response to the patient based on the known patient condition.\nPatient condition: {information}"
+    ],
+    "patient_crisis_answer": [
+        "Please role-play as a patient with the following personality: {profile}",
+        "Your medical condition is: {information}",
+        "During your diagnostic consultation with the doctor, you suddenly raised the following: {crisis}\n",
+        "The doctor's response is: {doctor_answer}",
+        "Based on your condition, what you raised, and the doctor's response, please give your reply to the doctor."
+    ],
+    "patient_crisis_generator": [
+        "You are an agent capable of generating emergency situations and special circumstances. Now, please generate a reasonable emergency or special situation for the patient based on the patient's information.\n",
+        "Note that the generated content should be in the tone of a patient asking a question or communicating with a doctor. The content must be based on the information, and the length should be one to two sentences, realistic.\n(For example: 1. Doctor, my stomach really hurts, when can I get treated?",
+        "2. Hey, why do you need to ask me so many questions?)\nIn the generated content, do not reveal the medical condition. Only describe the feelings during the emergency, such as pain, frustration, or anxiety.\nInformation: {information}"
+    ],
+    "patient_question_generator": [
+        "You are a task generation engine capable of role-playing as a patient.\nPatient description: {profile}\nYour task is to generate a patient's chief complaint. The doctor has the following capabilities:",
+        "\n--- Patient Resources ---\nSensory information when the patient arrives at the hospital.\n--- Problem Description ---\nBased on your understanding of the doctor, you can generate a problem suitable for the doctor to address.",
+        "You should generate a statement in the first person from the patient's perspective (e.g., with the tone of a patient speaking, hesitation, and other characteristics). Do not provide professional medical knowledge or disease names. Only include your feelings (e.g., **Doctor, I've been feeling unwell lately, with general fatigue and headache.**).",
+        "The chief complaint should be clear, but do not provide too many details or unnecessary information.\n",
+        "\n- Please wrap your answer with **, i.e., in the format ** response **\nFor example: **Doctor, I noticed a lump on the left side of my neck, and I've had a persistent dry cough along with a blocked feeling in my right ear.",
+        "**\nPatient resources: {information}\n"
+    ],
+    "quality_check_evolve": [
+        "You are a QA detection agent that can check whether a patient's answer meets the requirements. Now, we have the following requirements for the answer to the question.",
+        "\nRequirements:\nWhen the question involves specific professional terms for body parts, the patient should answer that they don't know.\nThe patient needs to answer based on the content in the medical information. Note that the answer should rely on the medical information.",
+        "\n----------\nWhen the question is NOT about test results:\nDo not use professional medical terminology or overly specific descriptions.\nIf the doctor's question is covered in the medical information, answer it. If the information does not contain the relevant content, do not answer.",
+        "\nThe answer should be in the first person from a patient's perspective, conversational in tone.\n-----------\n",
+        "When the question IS about test results:\nIf the question directly asks about the result of a complete hospital examination (such as MRI, immunohistochemistry, etc.), and the information does not mention the corresponding test result, the patient should decline to answer. If the information does contain the result, the patient should answer truthfully and in detail, may use medical terminology, and the answer should be accurate and concise.",
+        "\nWhen the question only involves specific medical terms for body parts, the patient should not answer (e.g., lymph nodes, humerus, cervical spine, etc.).",
+        "\n\nNow, I have the following Q&A pair:\nQuestion: {question}\nMedical information: {information}\nAnswer: {answer}\n\n",
+        "If this Q&A meets the requirements, reply Yes; otherwise, reply No. Note that your answer should only be Yes or No."
+    ],
+    "question_general_detect": [
+        "You are an evaluation agent. Your goal is to assess whether the following doctor's question is too broad, contains more than 3 sub-questions, or involves specific medical terms that are not a hospital examination. The answer should only be Yes or No.",
+        "\n(For example: 1. How are your various examination indicators? Answer: **Yes**; 2. What are your red blood cell test results? Answer: **No**)\nQuestion: {question}"
+    ],
+    "dynamic_requirements": [
+        "You are an agent capable of extracting key requirements. Now, for this doctor's question, to make the patient agent's answer more like a real human patient, provide the following requirements:\n",
+        "You are a response generator that mimics the tone of a patient without professional medical knowledge.\n---------\nNow a doctor is asking you a question,",
+        "The question may be about test results, or it may not be about test results.\nWhen the question involves specific professional terms for body parts, you should say you don't know.\nPlease answer based on the content in your medical information.",
+        "Note that your answer should rely on the medical information.\n----------\nWhen the question is NOT about test results:\nDo not use professional medical terminology or overly specific descriptions.\nIf the doctor's question is covered in the medical information,",
+        "then answer it. If the information does not contain the relevant content, do not answer.\n",
+        "The answer should be in the first person, from a patient's perspective, conversational in tone, similar to how a real person speaks in daily conversation, with filler words, hesitation, and other colloquial characteristics.\n",
+        "\n-----------\nWhen the question IS about test results:\nIf the question directly asks about the result of a complete hospital examination (such as MRI, immunohistochemistry, etc.), and the information does not mention the corresponding test result, please decline to answer. ",
+        "If the information does contain the result, please answer truthfully and in detail. You may use medical terminology, and the answer should be accurate and concise.\nWhen the question only involves specific medical terms for body parts, you should not answer (e.g., lymph nodes, humerus, cervical spine, etc.).",
+        "When the question requires answering many different aspects, you should decline to answer. (For example: Question: Please describe your condition. Answer: I cannot answer that.)",
+        "For the doctor's question, first determine which category the question belongs to, then concisely extract the two most important requirements from the above. Format as **Requirements**.\n",
+        "For example: **Requirement 1: The answer should be in the first person from a patient's perspective, conversational in tone, similar to how a real person speaks in daily conversation, with filler words, hesitation, and other colloquial characteristics.\nRequirement 2: For the doctor's question, if the medical information covers it, answer it; if the information does not contain the relevant content, do not answer.**\n",
+        "Doctor's question: {question}"
+    ],
+    "recruit": [
+        "You are a professional {0} doctor. The patient's chief complaint is as follows:",
+        "{1},\nYou have had multiple rounds of dialogue with the patient. Based on the summary and dialogue history, please determine whether you need to recruit a new specialist doctor. If you want to recruit a doctor from another department to assist with the diagnosis, please answer ##Department##.",
+        "The recruited doctors can include one or more of the following departments:",
+        "1. Internal Medicine. 2. Surgery. 3. Obstetrics and Gynecology. 4. Pediatrics. 5. Ophthalmology. 6. Otolaryngology. 7. Dentistry. 8. Dermatology. 9. Psychiatry. 10. Oncology. 11. Infectious Disease.",
+        "12. Emergency Medicine. 13. Rehabilitation. 14. Traditional Chinese Medicine. 15. Anesthesiology. 16. Radiology. 17. Pathology. 18. Laboratory Medicine. 19. Nutrition. 20. Preventive Healthcare.\n",
+        "For example, if recruiting doctors from Internal Medicine and Dermatology, reply ##Internal Medicine, Dermatology##. Otherwise, only reply ##NO##. Do not recruit doctors from your own department.",
+        "**Recruit at least once every 3 rounds. You have had {4} rounds of dialogue.**\nYour summary:\n{2}\nNew dialogue after the summary:\n{3}"
+    ],
+    "resource": [
+        "1. Patient, {name}, {gender}, {age}, from {hometown}. 2. {present_illness} 3. Oncology specialist findings: {specialist_examination} 4. Auxiliary examinations: {auxiliary_examinations}"
+    ],
+    "summary": [
+        "You are a professional {0} doctor. You have had several rounds of communication with the patient. Please provide a new summary based on your previous summary and the new Q&A.\nPrevious summary:\n{1}\nNew Q&A:"
+    ],
+    "vagueness": [
+        "You are an agent that can make detailed content vague. I will now give you a patient's detailed information, which includes the patient's detailed condition and examination results. Please remove the examination results, keep only the patient's symptoms, and apply appropriate vagueness.",
+        "\nNo need to ask for detailed vagueness strategies. Just provide the vague result directly. (For example, make time-related information vague, changing \"1 year\" to \"for a while now\")\nPatient information: {information}\n"
+    ],
+    "vague_resource": [
+        "Okay, please provide the patient's detailed information, and I will process it according to the requirements."
+    ],
+    "conclusion": [
+        "You are a professional {0} doctor who has had multiple rounds of dialogue with the patient, summarized some of the dialogues, and also had other specialist doctors ask the patient questions. Based on this information, please provide the final diagnosis in the format **Result** (e.g., **Nasopharyngeal Carcinoma**. The diagnosis should specify the specific disease the patient has).\nYour summary:\n{1}\nNew questions and answers after the summary:\n{2}\nBelow are summaries from other specialist doctors:\n"
+    ],
+    "cover": [
+        "You are a professional {0} doctor. Based on the patient's medical record, please ask multiple professional medical questions, focusing on medical examinations, medical treatments, and physical examination results, so that the questions cover as much of the medical record information as possible. Questions should be strictly limited to the information in the medical record. Do not ask follow-up questions. If a certain examination is mentioned in the information, ask about the results of that examination, not about subsequent examinations or treatments. Question format: **Question** (e.g., **How are your blood test results?**). Try to break down the questions into multiple ones, and reply in the format **Question****Question**... Patient medical record: {1}"
+    ]
+}

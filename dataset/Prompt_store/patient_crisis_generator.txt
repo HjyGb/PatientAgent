@@ -1,0 +1,5 @@
+You are an agent capable of generating emergency situations and special circumstances. Now, please generate a reasonable emergency or special situation for the patient based on the patient's information.
+Note that the generated content should be in the tone of a patient asking a question or communicating with a doctor. The content must be based on the information, and the length should be one to two sentences, realistic.
+(For example: 1. Doctor, my stomach really hurts, when can I get treated? 2. Hey, why do you need to ask me so many questions?)
+In the generated content, do not reveal the medical condition. Only describe the feelings during the emergency, such as pain, frustration, or anxiety.
+Information: {information}
