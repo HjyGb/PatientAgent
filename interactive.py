@@ -47,7 +47,7 @@ def pick_patient():
 
 def main():
     print("=" * 60)
-    print("  EvoPatient — Interactive Consultation Mode")
+    print("  PatientAgent — Interactive Consultation Mode")
     print("  You are the doctor. The AI is the patient.")
     print("=" * 60)
 

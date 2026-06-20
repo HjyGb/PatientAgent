@@ -1,4 +1,4 @@
-# EvoPatient 环境配置与运行指南
+# PatientAgent 环境配置与运行指南
 
 ## 快速启动
 

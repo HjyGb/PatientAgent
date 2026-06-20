@@ -1,4 +1,4 @@
-"""Main simulation flows for EvoPatient.
+"""Main simulation flows for PatientAgent.
 
 Provides:
   - init_session: shared setup logic (create dirs, load patient, assign dept, generate complaint)

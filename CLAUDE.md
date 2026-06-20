@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-EvoPatient — a multi-agent simulation system that uses LLMs to simulate standardized patient-doctor medical consultations. This is the reference implementation for the paper "LLMs Can Simulate Standardized Patients via Agent Coevolution" (arXiv:2412.11716, ACL 2025).
+PatientAgent — a multi-agent simulation system that uses LLMs to simulate standardized patient-doctor medical consultations. Personal development project based on the paper "LLMs Can Simulate Standardized Patients via Agent Coevolution" (arXiv:2412.11716, ACL 2025).
 
 ## Commands
 
